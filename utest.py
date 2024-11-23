@@ -4,31 +4,33 @@ import streamlit as st
 from scipy import stats
 
 # Custom CSS for dark mode
+
 st.markdown("""
     <style>
     body {
-        background-color: #1e1e1e;
-        color: #f0f0f0;
+        background-color: #ffffff;  /* Light background */
+        color: #000000;  /* Dark text color */
     }
     h1, h2, h3 {
-        color: #ffffff;
+        color: #000000;  /* Dark headings */
     }
     .stButton>button {
-        background-color: #007bff;
-        color: white;
+        background-color: #007bff;  /* Blue button background */
+        color: white;  /* White text on buttons */
     }
     .stButton>button:hover {
-        background-color: #0056b3;
+        background-color: #0056b3;  /* Darker blue on hover */
     }
     .stTable {
-        background-color: #2a2a2a;
-        color: #f0f0f0;
+        background-color: #f8f9fa;  /* Light background for tables */
+        color: #000000;  /* Dark text in tables */
     }
     .stMarkdown {
-        color: #f0f0f0;
+        color: #000000;  /* Dark text for markdown */
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 def create_step_by_step_solution(data, group_col, value_col):
     """Create detailed step-by-step Mann-Whitney U test solution"""
