@@ -7,28 +7,37 @@ from scipy import stats
 st.markdown("""
     <style>
     body {
-        background-color: #ffffff;  /* Light background */
-        color: #000000;  /* Dark text color */
+        background-color: #1e1e1e;
+        color: #f0f0f0;
     }
     h1, h2, h3 {
-        color: #000000;  /* Dark headings */
+        color: #ffffff;
     }
     .stButton>button {
-        background-color: #007bff;  /* Blue button background */
-        color: white;  /* White text on buttons */
+        background-color: #007bff;
+        color: white;
     }
     .stButton>button:hover {
-        background-color: #0056b3;  /* Darker blue on hover */
+        background-color: #0056b3;
     }
     .stTable {
-        background-color: #f8f9fa;  /* Light background for tables */
-        color: #000000;  /* Dark text in tables */
+        background-color: #2a2a2a;
+        color: #f0f0f0;
     }
     .stMarkdown {
-        color: #000000;  /* Dark text for markdown */
+        color: #f0f0f0;
+    }
+    .custom-box {
+        font-size: 18px;
+        background-color: white; /* Set to white */
+        color: black; /* Text color for contrast */
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 def create_step_by_step_solution(data, group_col, value_col):
     """Create detailed step-by-step Mann-Whitney U test solution"""
