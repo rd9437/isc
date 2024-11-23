@@ -7,33 +7,31 @@ from scipy import stats
 st.markdown("""
     <style>
     body {
-        background-color: #1e1e1e;
-        color: #f0f0f0;
+        background-color: #ffffff; /* White background */
+        color: #000000; /* Black text */
     }
     h1, h2, h3 {
-        color: #ffffff;
+        color: #000000; /* Ensure headers are black */
     }
     .stButton>button {
-        background-color: #007bff;
-        color: white;
+        background-color: #007bff; /* Blue button background */
+        color: white; /* White button text */
     }
     .stButton>button:hover {
-        background-color: #0056b3;
+        background-color: #0056b3; /* Darker blue on hover */
     }
     .stTable {
-        background-color: #2a2a2a;
-        color: #f0f0f0;
+        background-color: #f9f9f9; /* Light background for tables */
+        color: #000000; /* Black text in tables */
     }
     .stMarkdown {
-        color: #f0f0f0;
+        color: #000000; /* Black text for Markdown content */
     }
-    .custom-box {
-        font-size: 18px;
-        background-color: white; /* Set to white */
-        color: black; /* Text color for contrast */
-        padding: 10px;
+    .highlighted-text {
+        background-color: #f8f9fa; /* Subtle background for emphasis */
+        color: #000000; /* Black text */
+        padding: 5px;
         border-radius: 5px;
-        border: 1px solid #ccc;
     }
     </style>
 """, unsafe_allow_html=True)
