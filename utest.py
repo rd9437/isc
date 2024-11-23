@@ -4,7 +4,6 @@ import streamlit as st
 from scipy import stats
 
 # Custom CSS for dark mode
-
 st.markdown("""
     <style>
     body {
@@ -30,7 +29,6 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
-
 
 def create_step_by_step_solution(data, group_col, value_col):
     """Create detailed step-by-step Mann-Whitney U test solution"""
@@ -86,12 +84,10 @@ def create_step_by_step_solution(data, group_col, value_col):
     
     st.markdown(f"**R₁** (sum of ranks for Group {groups[0]}):")
     st.markdown(f"<p style='font-size: 18px; background-color: black; padding: 10px; border-radius: 5px;'><strong>= {' + '.join(map(str, df_ranked[df_ranked['Group'] == groups[0]]['Rank'].values))}</strong></p>", unsafe_allow_html=True)
-    
     st.write(f"= {R1}")
     
     st.write(f"\n**R₂** (sum of ranks for Group {groups[1]}):")
     st.markdown(f"<p style='font-size: 18px; background-color: black; padding: 10px; border-radius: 5px;'><strong>= {' + '.join(map(str, df_ranked[df_ranked['Group'] == groups[1]]['Rank'].values))}</strong></p>", unsafe_allow_html=True)
-    
     st.write(f"= {R2}")
     
     # Calculate U statistics
@@ -125,7 +121,6 @@ def create_step_by_step_solution(data, group_col, value_col):
     U = min(U1, U2)
     
     st.write("\n### 5️⃣ Test Statistic")
-    
     st.markdown(f"**U = min(U₁, U₂) = min({U1}, {U2}) = {U}**")
     
     # Critical value lookup
@@ -160,44 +155,51 @@ def create_step_by_step_solution(data, group_col, value_col):
     }
 
 def main():
-   # Set page configuration at the very start
+    # Set page configuration at the very start
+    st.title("📐 Mann-Whitney U Test Calculator")
+    st.write("Upload your data or use the sample data to perform a Mann-Whitney U test.")
+    
+    # Data input method selection
+    input_method = st.radio(
+        "Choose input method:",
+        ["Upload CSV", "Use Sample Data"]
+    )
+    
+    if input_method == "Upload CSV":
+        file = st.file_uploader("Upload CSV file", type=["csv"])
+        if file:
+            try:
+                data = pd.read_csv(file)
 
-   # Application Title
-   st.title("📐 Mann-Whitney U Test Calculator")
-   st.write("Upload your data or use the sample data to perform a Mann-Whitney U test.")
-   
-   # Data input method selection
-   input_method = st.radio(
-       "Choose input method:",
-       ["Upload CSV", "Use Sample Data"]
-   )
-   
-   if input_method == "Upload CSV":
-       file = st.file_uploader("Upload CSV file", type=["csv"])
-       if file:
-           try:
-               data = pd.read_csv(file)
-               st.write("Select columns for analysis:")
-               group_col = st.selectbox("Select group column:", data.columns)
-               value_col = st.selectbox("Select value column:", data.columns)
-               
-               if st.button("Perform Analysis"):
-                   results = create_step_by_step_solution(data, group_col, value_col)
-                   
-           except Exception as e:
-               st.error(f"Error: {str(e)}")
-   else:
-       # Sample data
-       sample_data = pd.DataFrame({
-           'Group': ['A', 'A', 'B', 'B', 'B', 'B', 'A', 'A', 'B', 'A', 'A', 'A'],
-           'Value': [20, 23, 25, 29, 30, 35, 39, 42, 42, 51, 57, 60]
-       })
-       
-       st.write("Sample Data:")
-       st.dataframe(sample_data.style.set_table_attributes('style="background-color: #2a2a2a; color: white;"'))
-       
-       if st.button("Perform Analysis"):
-           results = create_step_by_step_solution(sample_data, 'Group', 'Value')
+                # Ensure the selected value column is numeric
+                st.write("Select columns for analysis:")
+                group_col = st.selectbox("Select group column:", data.columns)
+                value_col = st.selectbox("Select value column:", data.columns)
+
+                # Convert the value column to numeric, forcing errors to NaN
+                data[value_col] = pd.to_numeric(data[value_col], errors='coerce')
+
+                # Check for NaN values after conversion
+                if data[value_col].isnull().any():
+                    st.error(f"Error: The column '{value_col}' contains non-numeric values.")
+                else:
+                    if st.button("Perform Analysis"):
+                        results = create_step_by_step_solution(data, group_col, value_col)
+
+            except Exception as e:
+                st.error(f"Error: {str(e)}")
+    else:
+        # Sample data
+        sample_data = pd.DataFrame({
+            'Group': ['A', 'A', 'B', 'B', 'B', 'B', 'A', 'A', 'B', 'A', 'A', 'A'],
+            'Value': [20, 23, 25, 29, 30, 35, 39, 42, 42, 51, 57, 60]
+        })
+        
+        st.write("Sample Data:")
+        st.dataframe(sample_data.style.set_table_attributes('style="background-color: #2a2a2a; color: white;"'))
+        
+        if st.button("Perform Analysis"):
+            results = create_step_by_step_solution(sample_data, 'Group', 'Value')
 
 if __name__ == "__main__":
-   main()
+    main()
