@@ -94,7 +94,7 @@ def create_step_by_step_solution(data, group_col, value_col):
     st.write(f"= {R1}")
     
     st.write(f"\n**R₂** (sum of ranks for Group {groups[1]}):")
-    st.markdown(f"<p style='font-size: 18px; background-color: black; padding: 10px; border-radius: 5px;'><strong>= {' + '.join(map(str, df_ranked[df_ranked['Group'] == groups[1]]['Rank'].values))}</strong></p>", unsafe_allow_html=True)
+    st.markdown(f"<p style='font-size: 18px; background-color: white; padding: 10px; border-radius: 5px;'><strong>= {' + '.join(map(str, df_ranked[df_ranked['Group'] == groups[1]]['Rank'].values))}</strong></p>", unsafe_allow_html=True)
     st.write(f"= {R2}")
     
     # Calculate U statistics
