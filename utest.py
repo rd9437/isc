@@ -194,7 +194,7 @@ def main():
        })
        
        st.write("Sample Data:")
-       st.dataframe(sample_data.style.set_table_attributes('style="background-color: #2a2a2a; color: black;"'))
+       st.dataframe(sample_data.style.set_table_attributes('style="background-color: #2a2a2a; color: white;"'))
        
        if st.button("Perform Analysis"):
            results = create_step_by_step_solution(sample_data, 'Group', 'Value')
