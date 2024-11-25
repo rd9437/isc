@@ -36,7 +36,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-
 def create_step_by_step_solution(data, group_col, value_col):
     """Create detailed step-by-step Mann-Whitney U test solution"""
     
@@ -51,10 +50,19 @@ def create_step_by_step_solution(data, group_col, value_col):
     # Step 4: Combined Ranking
     st.write("### 2️⃣ Combined Ranking Process")
     
-    # Create ranking table
-    combined_data = []
+    # Get the unique groups
     groups = sorted(data[group_col].unique())
     
+    # Check if both groups have fewer than 10 observations
+    n1 = sum(data[group_col] == groups[0])
+    n2 = sum(data[group_col] == groups[1])
+    
+    if n1 >= 10 or n2 >= 10:
+        st.error(f"Error: Group sizes must be less than 10. Group {groups[0]} has {n1} and Group {groups[1]} has {n2}.")
+        return
+    
+    # Create ranking table
+    combined_data = []
     for _, row in data.iterrows():
         combined_data.append({
             'Group': row[group_col],
@@ -75,10 +83,6 @@ def create_step_by_step_solution(data, group_col, value_col):
     })
     
     st.table(styled_df.style.set_table_attributes('style="background-color: #2a2a2a; color: white;"').format({"Rank": "{:.2f}"}))
-    
-    # Calculate group sizes
-    n1 = sum(df_ranked['Group'] == groups[0])
-    n2 = sum(df_ranked['Group'] == groups[1])
     
     st.write(f"**n₁** (Number of observations in Group {groups[0]}) = {n1}")
     st.write(f"**n₂** (Number of observations in Group {groups[1]}) = {n2}")
@@ -176,7 +180,7 @@ def main():
         file = st.file_uploader("Upload CSV file", type=["csv"])
         if file:
             try:
-                data = pd.read_csv(file)
+                                data = pd.read_csv(file)
 
                 # Ensure the selected value column is numeric
                 st.write("Select columns for analysis:")
@@ -204,9 +208,10 @@ def main():
         
         st.write("Sample Data:")
         st.dataframe(sample_data.style.set_table_attributes('style="background-color: #2a2a2a; color: white;"'))
-        
+
         if st.button("Perform Analysis"):
             results = create_step_by_step_solution(sample_data, 'Group', 'Value')
 
 if __name__ == "__main__":
     main()
+
