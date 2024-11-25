@@ -180,7 +180,7 @@ def main():
         file = st.file_uploader("Upload CSV file", type=["csv"])
         if file:
             try:
-                                data = pd.read_csv(file)
+                data = pd.read_csv(file)
 
                 # Ensure the selected value column is numeric
                 st.write("Select columns for analysis:")
@@ -214,4 +214,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
