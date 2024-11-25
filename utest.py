@@ -134,26 +134,26 @@ def create_step_by_step_solution(data, group_col, value_col):
     st.write("\n### 5️⃣ Test Statistic")
     st.markdown(f"**U = min(U₁, U₂) = min({U1}, {U2}) = {U}**")
     
-    # Critical value lookup
-    st.write("\n### 6️⃣ Critical Value")
-    st.write(f"Critical value (Uα) at 5% level of significance for n₁ = {n1} and n₂ = {n2}")
+    # Z value calculation
+    st.write("\n### 6️⃣ Calculate Z Value")
     
-    # Comparison and Conclusion
-    st.write("\n### 7️⃣ Comparison and Conclusion")
+    # Mean and standard deviation of U
+    mu_U = (n1 * n2) / 2
+    sigma_U = np.sqrt((n1 * n2 * (n1 + n2 + 1)) / 12)
     
-    p_value = stats.mannwhitneyu(
-        df_ranked[df_ranked['Group'] == groups[0]]['Value'],
-        df_ranked[df_ranked['Group'] == groups[1]]['Value'],
-        alternative='two-sided'
-    ).pvalue
+    Z = abs(U - mu_U) / sigma_U
     
-    if p_value < 0.05:
-        st.error(f"Since p-value ({p_value:.4f}) < α (0.05), we reject H₀")
+    st.write(f"**Z = |U - μₓ| / σₓ = |{U} - {mu_U}| / {sigma_U} = {Z:.2f}**")
+    
+    # Critical value comparison (Z-critical for α = 0.05, two-tailed)
+    critical_value = 1.96
+    if Z > critical_value:
+        st.error(f"Since Z ({Z:.2f}) > {critical_value}, we reject H₀.")
         st.write(f"We conclude that the median {value_col} in the two groups are significantly different.")
     else:
-        st.success(f"Since p-value ({p_value:.4f}) > α (0.05), we fail to reject H₀")
+        st.success(f"Since Z ({Z:.2f}) ≤ {critical_value}, we fail to reject H₀.")
         st.write(f"We conclude that the median {value_col} in the two groups are not significantly different.")
-    
+
     return {
         'n1': n1,
         'n2': n2,
@@ -162,7 +162,7 @@ def create_step_by_step_solution(data, group_col, value_col):
         'U1': U1,
         'U2': U2,
         'U': U,
-        'p_value': p_value
+        'Z': Z
     }
 
 def main():
