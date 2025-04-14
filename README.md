@@ -2,6 +2,13 @@
 
 This repository contains a **Streamlit** web app that allows users to perform a **Mann-Whitney U test** to compare the GPA distributions of two independent student groups (e.g., students who study at night vs. students who study during the day). The app provides a detailed step-by-step solution, including hypotheses, ranking, U-statistic calculation, and p-value interpretation.
 
+[![Live Demo](https://img.shields.io/badge/Live-Demo-green?style=for-the-badge)](https://mannutest.streamlit.app/)
+
+---
+![Homepage](images/Screenshot 2025-04-14 141048.png)
+
+---
+
 ### 🔍 **Project Overview**
 
 The goal of this project is to determine whether the time of study (Night vs. Day) has an effect on student GPAs. The **Mann-Whitney U test**, a non-parametric test, is used to evaluate the differences between two independent groups when the assumptions of parametric tests (such as normality) are not met.
@@ -21,8 +28,8 @@ To run this app locally, follow the steps below:
 
 #### 1. Clone the Repository
 ```
-git clone https://github.com/yourusername/repo-name.git
-cd repo-name
+git clone https://github.com/rd89437/Mann_Whitney_U_Test.git
+cd Mann_Whitney_U_Test
 ```
 
 #### 2. Install Dependencies
@@ -78,3 +85,4 @@ The app provides interactive visualizations to help you better understand the da
 
 - **Boxplots**: To visually compare the GPA distributions between the two groups.
 - **Ranking tables**: Showing how values are ranked and summed for both groups.
+
