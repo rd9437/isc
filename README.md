@@ -5,7 +5,7 @@ This repository contains a **Streamlit** web app that allows users to perform a 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-green?style=for-the-badge)](https://mannutest.streamlit.app/)
 
 ---
-![Homepage](images/Screenshot 2025-04-14 141048.png)
+![Homepage](images/homepage.png)
 
 ---
 
